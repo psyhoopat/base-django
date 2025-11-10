@@ -11,6 +11,18 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+<header>
+    {% if is_auth %}
+        <ul>
+            <li><a href="{% url 'profile' %}">Профиль</a></li>
+        </ul>
+    {% else %}
+        <ul>
+            <li><a href="{% url 'register' %}">Регистрация</a></li>
+            <li><a href="{% url 'login' %}">Войти</a></li>
+        </ul>
+    {% endif %}
+</header>
 {% block main %}{% endblock %}
 <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
