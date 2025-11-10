@@ -4,13 +4,15 @@
     <h1>Hello {{ username }}</h1>
     {% if is_auth %}
         <ul>
-            {% for key, value  in links.items %}
+            {% for key, value  in links_auth.items %}
                 <li><a href="{% url key %}">{{ value }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-        {% for key, value  in links_not_auth.items %}
-            <li><a href="{% url key %}">{{ value }}</a></li>
-        {% endfor %}
+        <ul>
+            {% for key, value  in links_not_auth.items %}
+                <li><a href="{% url key %}">{{ value }}</a></li>
+            {% endfor %}
+        </ul>
     {% endif %}
 {% endblock %}
