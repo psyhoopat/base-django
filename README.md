@@ -1,11 +1,50 @@
+# Base Django
+
+Основной функционал: 
+- авторизация
+- регистрация
+- загрузить
+- страница профиля
+
+## Установить зависимости
+
 ```bash
-python -m venv venv
+pip install -r requirements.txt
+```
+
+## Создать вирутальное окружение
+```bash
+python -m venv <name_venv>
+```
+
+
+## Django команды
+
+#### Запустить проект
+
+```bash
+python manage.py runserver
+```
+
+#### Команды для БД
+```bash
+python manage.py makemigrations
 ```
 
 ```bash
-pip install django
+python manage.py migrate
+```
+
+#### Команды крейторы
+
+```bash
+django-admin createproject <name_project>
 ```
 
 ```bash
-pip install pillow
+python manage.py startapp <name_app>
+```
+
+```bash
+python manage.py createsuperuser
 ```
