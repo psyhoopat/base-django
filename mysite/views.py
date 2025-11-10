@@ -12,6 +12,7 @@ def index(request):
         "username": "admin",
         "is_auth": request.user.is_authenticated,
     }
+
     return render(request, "page/main.html", context)
 
 def register(request):
@@ -37,11 +38,7 @@ def register(request):
     else:
         form = SingUpForm()
 
-    context = {
-        "is_auth": request.user.is_authenticated,
-        "form": form
-    }
-
+    context = { "form": form }
     return render(request, "page/register.html", context)
 
 def login_view(request):
@@ -59,11 +56,7 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    context = {
-        "is_auth": request.user.is_authenticated,
-        "form": form
-    }
-
+    context = { "form": form }
     return render(request, "page/login.html", context)
 
 @login_required
