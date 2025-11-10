@@ -5,7 +5,7 @@
 {% block main %}
     <script src="{% static 'logout.js' %}"></script>
 
-    <div class="container">
+    <div class="container box1 p-5 mb-5">
         <h1>Профиль</h1>
         <ul class="mt-3 mb-5">
             {% if user.first_name and user.last_name %}
@@ -15,7 +15,25 @@
             <li><strong>Никнейм: </strong>@{{ user.username }}</li>
             <li><strong>Email: </strong>{{ user.email }}</li>
         </ul>
+
         <button type="button" class="btn btn-danger" onclick="logout()">Выйти</button>
     </div>
+
+    <div class="box1 container p-5 mb-5">
+        <h2>Добавить фотографию</h2>
+        <form action="" method="post">
+
+        </form>
+        <div>
+            {# errors #}
+        </div>
+    </div>
+
+    {% if image %}
+        <div class="box1 container p-5 mb-5">
+            <h2>Галерея</h2>
+            <div class="images"></div>
+        </div>
+    {% endif %}
 {% endblock %}
 
