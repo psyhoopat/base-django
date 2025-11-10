@@ -34,11 +34,11 @@ class SingUpForm(UserCreationForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
-        label="Email",
+    username = forms.CharField(
+        label="Nickname",
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Введите почту'
+            'placeholder': 'Введите никнейм'
         }),
     )
     password = forms.CharField(
