@@ -17,6 +17,9 @@ def index(request):
 
 def register(request):
     # https://fixmypc.ru/post/sozdaem-stranitsu-registratsii-polzovatelei-django/?ysclid=mhsztne413664128872
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("/profile")
+
     if request.method == "POST":
         form = SingUpForm(request.POST)
         if form.is_valid():
@@ -42,6 +45,9 @@ def register(request):
     return render(request, "page/register.html", context)
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("/profile")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -67,12 +73,11 @@ def profile(request):
 
     return render(request, "page/profile.html", context)
 
+@login_required
 def load_image(request):
     return HttpResponse("Page load image.")
 
+@login_required
 def logout_view(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect("/login")
-
     logout(request)
     return HttpResponseRedirect("/login")
