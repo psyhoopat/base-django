@@ -11,13 +11,6 @@ def index(request):
     context = {
         "username": "admin",
         "is_auth": request.user.is_authenticated,
-        "links_not_auth": {
-            "register": "Регистрация",
-            "login": "Войти",
-        },
-        "links_auth": {
-            "profile": "Профиль",
-        }
     }
     return render(request, "page/main.html", context)
 
@@ -44,7 +37,12 @@ def register(request):
     else:
         form = SingUpForm()
 
-    return render(request, "page/register.html", {"form": form})
+    context = {
+        "is_auth": request.user.is_authenticated,
+        "form": form
+    }
+
+    return render(request, "page/register.html", context)
 
 def login_view(request):
     if request.method == "POST":
@@ -61,11 +59,20 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, "page/login.html", {"form": form})
+    context = {
+        "is_auth": request.user.is_authenticated,
+        "form": form
+    }
+
+    return render(request, "page/login.html", context)
 
 @login_required
 def profile(request):
-    return render(request, "page/profile.html")
+    context = {
+        "is_auth": request.user.is_authenticated,
+    }
+
+    return render(request, "page/profile.html", context)
 
 def load_image(request):
     return HttpResponse("Page load image.")
