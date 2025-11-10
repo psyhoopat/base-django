@@ -73,6 +73,7 @@ def login_view(request):
 def profile(request):
     context = {
         "is_auth": request.user.is_authenticated,
+        "user": request.user,
     }
 
     return render(request, "page/profile.html", context)
