@@ -1,20 +1,31 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-class RegisterForm(forms.Form):
-    first_name = forms.CharField(
-        label="Имя",
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Введите имя'
-        }),
+class SingUpForm(UserCreationForm):
+    password1 = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+        strip = False,
     )
-    last_name = forms.CharField(
-        label="Фамиля",
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Введите фамилию'
-        })
+    password2 = forms.CharField(
+        label="Повторите пароль",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+        strip=False,
     )
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class LoginForm(forms.Form):
     email = forms.EmailField(
         label="Email",
         widget=forms.TextInput(attrs={
