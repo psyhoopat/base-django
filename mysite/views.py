@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import RegisterForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+
+from mysite.forms import SingUpForm
 
 
 # Create your views here.
@@ -23,23 +23,25 @@ def index(request):
 def register(request):
     # https://fixmypc.ru/post/sozdaem-stranitsu-registratsii-polzovatelei-django/?ysclid=mhsztne413664128872
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SingUpForm(request.POST)
         if form.is_valid():
-            # first_name = form.cleaned_data["first_name"]
-            # last_name = form.cleaned_data["last_name"]
-            # email = form.cleaned_data["email"]
-            # password = form.cleaned_data["password"]
-            #
-            # user = User.objects.create_user(first_name, email, password)
-            #
-            # user.last_name = first_name
-            # user.last_name = last_name
-            # user.save()
-            form.save()
+            username = form.cleaned_data['username']
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password1"]
+
+            user = User.objects.create_user(username=username, email=email, password=password)
+
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+
+            # form.save()
 
             return HttpResponseRedirect("/login")
     else:
-        form = UserCreationForm()
+        form = SingUpForm()
 
     return render(request, "page/register.html", {"form": form})
 
