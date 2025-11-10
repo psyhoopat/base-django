@@ -32,5 +32,12 @@
                 </ul>
             {% endif %}
         </div>
+        {% if error %}
+            <div>
+                <ul>
+                    <li><strong>Ошибка:</strong> {{ message }}</li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

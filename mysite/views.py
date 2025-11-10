@@ -49,7 +49,7 @@ def login_view(request):
         return HttpResponseRedirect("/profile")
 
     if request.method == "POST":
-        form = LoginForm(request.POST or None)
+        form = LoginForm(data=request.POST or None)
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
@@ -57,8 +57,12 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect("/profile")
-
-            return render(request, "page/login.html", {"form": form})
+            else:
+                return render(request, "page/login.html", {
+                    "form": form,
+                    "error": True,
+                    "message": "Неправильный пользователь и/или пароль."
+                })
     else:
         form = LoginForm()
 
