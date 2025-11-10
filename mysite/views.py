@@ -49,16 +49,16 @@ def login_view(request):
         return HttpResponseRedirect("/profile")
 
     if request.method == "POST":
-        form = LoginForm(request.POST)
+        form = LoginForm(request.POST or None)
         if form.is_valid():
-            username = request.POST["username"]
-            password = request.POST["password"]
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect("/profile")
-            else:
-                return render(request, "page/login.html", {"form": form})
+
+            return render(request, "page/login.html", {"form": form})
     else:
         form = LoginForm()
 
