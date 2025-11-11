@@ -1,0 +1,21 @@
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ['title', 'cover']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите имя файла',
+            }),
+            'cover': forms.FileInput(attrs={
+                'class': 'form-control',
+            }),
+        }
+        labels = {
+            'title': 'Имя файла',
+            'cover': 'Фотография'
+        }
