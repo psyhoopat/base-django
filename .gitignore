@@ -1,4 +1,7 @@
 /.idea
 /venv
 __pycache__
+*.pyc
+_migrations/*
+!_migrations/__init__.py
 db.sqlite3
