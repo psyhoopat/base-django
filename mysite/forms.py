@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
+from .models import Post
+
 class SingUpForm(UserCreationForm):
     password1 = forms.CharField(
         label="Пароль",
@@ -48,3 +50,22 @@ class LoginForm(AuthenticationForm):
             'placeholder': 'Введите пароль'
         }),
     )
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ['title', 'cover']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите имя файла',
+            }),
+            'cover': forms.FileInput(attrs={
+                'class': 'form-control',
+            }),
+        }
+        labels = {
+            'title': 'Имя файла',
+            'cover': 'Фотография'
+        }

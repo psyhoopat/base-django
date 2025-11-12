@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
 
 from mysite.forms import SingUpForm, LoginForm
-from image.forms import PostForm
+from .forms import PostForm
 
-from image.models import Post
+from .models import Post
 
 # Create your views here.
 def index(request):
@@ -72,8 +72,20 @@ def login_view(request):
 
 @login_required
 def profile(request):
-    form = PostForm()
     object_list = Post.objects.all()
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            cover = form.cleaned_data["cover"]
+
+            obj = Post.objects.create(title=title, cover=cover)
+            obj.save()
+
+            return HttpResponseRedirect("/profile")
+    else:
+        form = PostForm()
 
     context = {
         "is_auth": request.user.is_authenticated,
@@ -83,10 +95,6 @@ def profile(request):
     }
 
     return render(request, "page/profile.html", context)
-
-@login_required
-def load_image(request):
-    return HttpResponse("Page load image.")
 
 @login_required
 def logout_view(request):
