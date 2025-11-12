@@ -72,7 +72,7 @@ def login_view(request):
 
 @login_required
 def profile(request):
-    object_list = Post.objects.all()
+    object_list = Post.objects.filter(user_id=request.user.id)
 
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -80,7 +80,8 @@ def profile(request):
             title = form.cleaned_data["title"]
             cover = form.cleaned_data["cover"]
 
-            obj = Post.objects.create(title=title, cover=cover)
+            user = User.objects.get(pk=request.user.pk)
+            obj = Post.objects.create(title=title, cover=cover, user_id=user)
             obj.save()
 
             return HttpResponseRedirect("/profile")
