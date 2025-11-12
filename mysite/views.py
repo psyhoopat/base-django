@@ -38,8 +38,6 @@ def register(request):
             user.last_name = last_name
             user.save()
 
-            # form.save()
-
             return HttpResponseRedirect("/login")
     else:
         form = SingUpForm()
