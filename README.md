@@ -44,6 +44,10 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+```bash
+python manage.py flush
+```
+
 #### Команды крейторы
 
 ```bash
