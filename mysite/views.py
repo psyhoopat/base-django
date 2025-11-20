@@ -19,7 +19,7 @@ def index(request):
     return render(request, "page/main.html", context)
 
 def register(request):
-    # https://fixmypc.ru/post/sozdaem-stranitsu-registratsii-polzovatelei-django/?ysclid=mhsztne413664128872
+    # Как создать регистрацию: https://fixmypc.ru/post/sozdaem-stranitsu-registratsii-polzovatelei-django/?ysclid=mhsztne413664128872
     if request.user.is_authenticated:
         return HttpResponseRedirect("/profile")
 
